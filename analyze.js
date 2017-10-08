@@ -4,6 +4,7 @@ var stemmer = snowballFactory.newStemmer('english');
 
 function analyzeWords(words) {
     var dict = {};
+    var total = 0;
     for (var x in words) {
         var word = words[x];
         if (word.length < 2)
@@ -22,11 +23,13 @@ function analyzeWords(words) {
             console.log('Shorten => ' + word + ' vs. ' + obj.word);
             obj.word = word;
         }
+
+        total++;
     }
 
     var stats = [];
     for (var x in dict)
-        stats.push({word: dict[x].word, freq: dict[x].count * 100 / words.length, count: dict[x].count, stem: x});
+        stats.push({word: dict[x].word, freq: dict[x].count * 100 / total, count: dict[x].count, stem: x});
 
     return stats.sort((a, b) => b.count - a.count);
 }

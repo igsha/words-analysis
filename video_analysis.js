@@ -35,7 +35,7 @@ function parseVideoFile(file) {
         }
 
         if (track === null) {
-            console.log("No english language track has been found.");
+            alert("No english language track has been found.");
             return;
         }
 

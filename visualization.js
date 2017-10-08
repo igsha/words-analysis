@@ -15,7 +15,7 @@ function putResultsInTable(header, content) {
         for (var j in content[i]) {
             var td = tr.insertCell();
             var value = content[i][j];
-            if (typeof(value) === "number" && (value % 1) != 0)
+            if (typeof(value) === 'number' && (value % 1) != 0)
                 value = value.toFixed(2) + '%'
             td.innerHTML = value;
         }
@@ -25,4 +25,7 @@ function putResultsInTable(header, content) {
 function visualize(words) {
     var header = ['Word', 'Frequency', 'Count', 'Stem'];
     putResultsInTable(header, words);
+
+    var label = document.getElementById('label');
+    label.innerHTML = 'Statistic: ' + words.length + ' words, ' + words.reduce((a, x) => a + x.count, 0) + ' total words in the text.';
 }
