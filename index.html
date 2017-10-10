@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
     <script src="https://rawgit.com/mazko/jssnowball/master/js_snowball/lib/snowball.babel.js"></script>
     <script src="https://download.tsi.telecom-paristech.fr/gpac/mp4box.js/mp4box.all.min.js"></script>
+    <script src="http://danml.com/js/download.js"></script>
     <script src="analyze.js"></script>
     <script src="visualization.js"></script>
     <script src="file_analysis.js"></script>
@@ -17,6 +18,11 @@
 <div>
     <label for="textfile">Choose text or video file to analyze</label>
     <input type="file" id="textfile" accept="text/*,video/*" onchange="parseFile(event.target.files[0])">
+</div>
+<br>
+<div>
+    <button disabled type="button" id="b-csv" onclick="downloadCsv(document.getElementById('output'))">Save as csv</button>
+    <button disabled type="button" id="b-text" onclick="downloadText(document.getElementById('output'))">Save as text</button>
 </div>
 <br>
 <div>
@@ -34,7 +40,7 @@
 </div>
 <br>
 <div>
-    <label for="textout">Extracted text</label><br>
+    <label for="textout">Extracted text from video</label><br>
     <textarea id="textout" rows="20" cols="50" disabled></textarea>
 </div>
 
