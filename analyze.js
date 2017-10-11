@@ -13,11 +13,13 @@ function analyzeWords(words) {
         var st = stemmer.stem(word);
         var obj = dict[st];
         if (obj === undefined) {
-            obj = {count: 0, word: word};
+            obj = {count: 0, word: word, forms: {}};
+            obj.forms[word] = 1;
             dict[st] = obj;
         }
 
         obj.count++;
+        obj.forms[word] = 1;
 
         if (obj.word.length > word.length) {
             console.log('Shorten => ' + word + ' vs. ' + obj.word);
@@ -28,8 +30,19 @@ function analyzeWords(words) {
     }
 
     var stats = [];
-    for (var x in dict)
-        stats.push({word: dict[x].word, freq: dict[x].count * 100 / total, count: dict[x].count, stem: x});
+    for (var x in dict) {
+        var forms = [];
+        for (var i in dict[x].forms)
+            forms.push(i);
+
+        stats.push({
+            word: dict[x].word,
+            freq: dict[x].count * 100 / total,
+            count: dict[x].count,
+            stem: x,
+            forms: forms.join(';')
+        });
+    }
 
     return stats.sort((a, b) => b.count - a.count);
 }
