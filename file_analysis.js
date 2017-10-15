@@ -1,12 +1,15 @@
 'use strict';
 
+function parseText(text) {
+    var words = analyzeText(text);
+    visualize(words);
+}
+
 function parseTextFile(file) {
     var reader = new FileReader();
 
     reader.onload = function() {
-        var text = reader.result;
-        var words = analyzeText(text);
-        visualize(words);
+        parseText(reader.result);
     };
 
     reader.readAsText(file);

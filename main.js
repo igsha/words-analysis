@@ -9,3 +9,11 @@ function parseFile(file) {
     else
         parseTextFile(file);
 }
+
+function clearForms() {
+    var text = document.getElementById('textin');
+    text.value = '';
+
+    text = document.getElementById('textout');
+    text.value = '';
+}

@@ -3,7 +3,7 @@
 var stemmer = snowballFactory.newStemmer('english');
 
 function analyzeWords(words) {
-    var dict = {};
+    var dict = new Map;
     var total = 0;
     for (var x in words) {
         var word = words[x];
@@ -11,15 +11,14 @@ function analyzeWords(words) {
             continue;
 
         var st = stemmer.stem(word);
-        var obj = dict[st];
+        var obj = dict.get(st);
         if (obj === undefined) {
-            obj = {count: 0, word: word, forms: {}};
-            obj.forms[word] = 1;
-            dict[st] = obj;
+            obj = {count: 0, word: word, forms: new Set([word])};
+            dict.set(st, obj);
         }
 
         obj.count++;
-        obj.forms[word] = 1;
+        obj.forms.add(word);
 
         if (obj.word.length > word.length) {
             console.log('Shorten => ' + word + ' vs. ' + obj.word);
@@ -30,17 +29,13 @@ function analyzeWords(words) {
     }
 
     var stats = [];
-    for (var x in dict) {
-        var forms = [];
-        for (var i in dict[x].forms)
-            forms.push(i);
-
+    for (var [key, value] of dict) {
         stats.push({
-            word: dict[x].word,
-            freq: dict[x].count * 100 / total,
-            count: dict[x].count,
-            stem: x,
-            forms: forms.join(';')
+            word: value.word,
+            freq: value.count * 100 / total,
+            count: value.count,
+            stem: key,
+            forms: Array.from(value.forms).join(';')
         });
     }
 

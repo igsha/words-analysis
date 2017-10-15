@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.1/core.min.js"></script>
     <script src="https://rawgit.com/mazko/jssnowball/master/js_snowball/lib/snowball.babel.js"></script>
     <script src="https://download.tsi.telecom-paristech.fr/gpac/mp4box.js/mp4box.all.min.js"></script>
-    <script src="https://rawgit.com/rndme/download/master/download.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
     <script src="analyze.js"></script>
     <script src="visualization.js"></script>
     <script src="file_analysis.js"></script>
@@ -16,33 +17,51 @@
 <h1>Words analysis</h1>
 
 <div>
-    <label for="textfile">Choose text or video file to analyze</label>
-    <input type="file" id="textfile" accept="text/*,video/*" onchange="parseFile(event.target.files[0])">
+    <fieldset>
+        <legend>Input area</legend>
+
+        <label for="textfile">Choose text or video file to analyze</label>
+        <input type="file" id="textfile" accept="text/*,video/*" onchange="clearForms(); parseFile(event.target.files[0])">
+        <br>
+
+        <div style="padding:10px">
+            <textarea id="textin" rows="10" style="width:100%"></textarea>
+            <br>
+            <button type="button" id="b-input" onclick="parseText(document.getElementById('textin').value)">Send text</button>
+        </div>
+    </fieldset>
 </div>
 <br>
+
 <div>
-    <button disabled type="button" id="b-csv" onclick="downloadCsv(document.getElementById('output'))">Save as csv</button>
-    <button disabled type="button" id="b-text" onclick="downloadText(document.getElementById('output'))">Save as text</button>
-</div>
-<br>
-<div>
-    <label for="output" id="label">Statistic:</label><br>
-    <table id="output" cellpadding="2" cellspacing="2" border="1">
-        <thead>
-            <tr>
-                <td>Word</td>
-                <td>Frequency</td>
-                <td>Count</td>
-                <td>Stem</td>
-                <td>All forms</td>
-            </tr>
-        </thead>
-    </table>
-</div>
-<br>
-<div>
-    <label for="textout">Extracted text from video</label><br>
-    <textarea id="textout" rows="20" cols="50" disabled></textarea>
+    <fieldset>
+        <legend>Output area</legend>
+
+        <div>
+            <button disabled type="button" id="b-csv" onclick="downloadCsv(document.getElementById('output'))">Save as csv</button>
+            <button disabled type="button" id="b-text" onclick="downloadText(document.getElementById('output'))">Save as text</button>
+        </div>
+        <br>
+
+        <label for="output" id="label">Statistic:</label><br>
+        <table id="output" cellpadding="2" cellspacing="2" border="1">
+            <thead>
+                <tr>
+                    <td>Word</td>
+                    <td>Frequency</td>
+                    <td>Count</td>
+                    <td>Stem</td>
+                    <td>All forms</td>
+                </tr>
+            </thead>
+        </table>
+        <br>
+
+        <div style="padding:10px">
+            <label for="textout">Extracted text from video</label><br>
+            <textarea id="textout" rows="20" style="width:100%" disabled></textarea>
+        </div>
+    </fieldset>
 </div>
 
 </body>
