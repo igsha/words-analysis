@@ -4,10 +4,14 @@ function parseFile(file) {
     if (file === undefined)
         return; // user chose 'Cancel'
 
-    if (/video\/.*/i.exec(file.type))
-        parseVideoFile(file);
-    else
-        parseTextFile(file);
+    try {
+        if (/video\/.*/i.exec(file.type))
+            parseVideoFile(file);
+        else
+            parseTextFile(file);
+    } catch(err) {
+        alert('Error ' + err.name + ':' + err.message + '\n' + err.stack);
+    }
 }
 
 function clearForms() {

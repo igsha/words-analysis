@@ -2,10 +2,12 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/plain; charset=utf-8">
+    <title>Words analysis</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.5.1/core.min.js"></script>
-    <script src="https://rawgit.com/mazko/jssnowball/master/js_snowball/lib/snowball.babel.js"></script>
     <script src="https://download.tsi.telecom-paristech.fr/gpac/mp4box.js/mp4box.all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.7/download.min.js"></script>
+    <script src="dictionaries.js"></script>
+    <script src="bundle.js"></script>
     <script src="analyze.js"></script>
     <script src="visualization.js"></script>
     <script src="file_analysis.js"></script>
@@ -14,7 +16,7 @@
 </head>
 <body>
 
-<h1>Words analysis</h1>
+<h1>Words analysis by lemmatization</h1>
 
 <div>
     <fieldset>
@@ -50,8 +52,8 @@
                     <td>Word</td>
                     <td>Frequency</td>
                     <td>Count</td>
-                    <td>Stem</td>
-                    <td>All forms</td>
+                    <td>Root</td>
+                    <td>Forms</td>
                 </tr>
             </thead>
         </table>

@@ -1,6 +1,7 @@
 'use strict';
 
-var stemmer = snowballFactory.newStemmer('english');
+var Lemmatizer = require('javascript-lemmatizer');
+var lemmatizer = new Lemmatizer();
 
 function analyzeWords(words) {
     var dict = new Map;
@@ -10,11 +11,15 @@ function analyzeWords(words) {
         if (word.length < 2)
             continue;
 
-        var st = stemmer.stem(word);
-        var obj = dict.get(st);
+        var lemmas = lemmatizer.only_lemmas(word);
+        if (lemmas.length > 1)
+            lemmas = lemmas.filter(x => x != word);
+        var key = lemmas.join(';');
+
+        var obj = dict.get(key);
         if (obj === undefined) {
-            obj = {count: 0, word: word, forms: new Set([word])};
-            dict.set(st, obj);
+            obj = {count: 0, word: word, forms: new Set};
+            dict.set(key, obj);
         }
 
         obj.count++;
@@ -34,14 +39,13 @@ function analyzeWords(words) {
             word: value.word,
             freq: value.count * 100 / total,
             count: value.count,
-            stem: key,
+            root: key,
             forms: Array.from(value.forms).join(';')
         });
     }
 
     return stats.sort((a, b) => b.count - a.count);
 }
-
 
 function analyzeText(text) {
     var words = text.toLowerCase().match(/([a-z]+)/g);
